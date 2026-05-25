@@ -18,19 +18,29 @@ Basta decorar suas models com os atributos do `EZ.Redact.Lgpd.Core` e usar os se
 dotnet add package EZ.Redact.Lgpd.Xml
 ```
 
-Registre os servicos no DI:
+Registre os serviços no DI:
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddLGPDRedaction()
                 .AddXmlRedaction();
-builder.Logging.EnableRedaction(options => options.ApplyDiscriminator = false);
 ```
 
 > `AddXmlRedaction()` registra os serializadores `RedactingXmlSerializer` e `RedactingDataContractSerializer` como singletons no DI.
+
+## Exemplo rápido
+
+```csharp
+using EZ.Redact.Lgpd.Xml.XmlSerializer;
+
+var redactor = serviceProvider.GetRequiredService<RedactingXmlSerializer>();
+var xml = redactor.Serialize(pessoa);
+// <Pessoa><Nome>J*** S****</Nome><Documento>123.***.***-09</Documento></Pessoa>
+```
+
+> Todos os dados sensíveis decorados com atributos LGPD serão redigidos automaticamente durante a serialização XML.
 
 ## Configuração
 
@@ -259,6 +269,17 @@ dotnet run --project samples/EZ.Redact.Lgpd.Xml.Sample
 curl http://localhost:5000/xml
 curl http://localhost:5000/dc
 ```
+
+---
+
+## Projetos Relacionados
+
+| Projeto | Descrição |
+| :--- | :--- |
+| [EZ.Redact.Lgpd.Core](https://github.com/ez-dotnet/ez-redact-lgpd-core) | Biblioteca base de redação de dados sensíveis LGPD |
+| [EZ.Redact.Lgpd.EntityFramework](https://github.com/ez-dotnet/ez-redact-lgpd-entityframework) | Extensão para redação de dados em consultas Entity Framework |
+| [EZ.Redact.Lgpd.Json](https://github.com/ez-dotnet/ez-redact-lgpd-json) | Extensão para redação de dados em serialização JSON |
+| [EZ.Redact.Lgpd.MongoDb](https://github.com/ez-dotnet/ez-redact-lgpd-mongodb) | Extensão para redação de dados em consultas MongoDB |
 
 ---
 
