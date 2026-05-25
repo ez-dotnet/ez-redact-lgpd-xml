@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/EZ.Redact.Lgpd.Xml/EZ.Redact.Lgpd.Xml.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/EZ.Redact.Lgpd.Xml.Tests/EZ.Redact.Lgpd.Xml.Tests.csproj" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples/EZ.Redact.Lgpd.Xml.Sample/EZ.Redact.Lgpd.Xml.Sample.csproj" />
+  </Folder>
+</Solution>
